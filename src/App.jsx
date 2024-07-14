@@ -1,10 +1,16 @@
 import React from 'react'
-import Card from "./components/Card.jsx";
+import Progress from "./components/Progress.jsx";
 
 
 class App extends React.Component {
     render() {
-        return<Card/>
+        return(
+            <>
+                <Progress percentage={40} />
+                <Progress percentage={70} />
+                <Progress percentage={90} />
+            </>
+        )
     }
 }
 
