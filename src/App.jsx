@@ -1,10 +1,10 @@
 import React from 'react'
-import Card from "./components/Card.jsx";
+import Alert from "./components/Alert.jsx";
 
 
 class App extends React.Component {
     render() {
-        return<Card/>
+        return<Alert type="warning" text="what is love?"/>;
     }
 }
 
