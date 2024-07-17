@@ -1,10 +1,10 @@
 import React from 'react'
-import Card from "./components/Card.jsx";
+import Slider from "./components/Slider.jsx";
 
 
 class App extends React.Component {
     render() {
-        return<Card/>
+        return<Slider/>
     }
 }
 
