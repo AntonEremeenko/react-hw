@@ -1,43 +1,45 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
 
 class Slider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentSlide: 0
+            currentIndex: 0
         };
     }
 
-    handlePrevClick = () => {
-        this.setState((prevState) => ({
-            currentSlide: (prevState.currentSlide - 1 + this.props.images.length) % this.props.images.length
+    handleNext = () => {
+        const { images } = this.props;
+        this.setState(prevState => ({
+            currentIndex: (prevState.currentIndex + 1) % images.length
         }));
     };
 
-    handleNextClick = () => {
-        this.setState((prevState) => ({
-            currentSlide: (prevState.currentSlide + 1) % this.props.images.length
+    handlePrev = () => {
+        const { images } = this.props;
+        this.setState(prevState => ({
+            currentIndex: (prevState.currentIndex - 1 + images.length) % images.length
         }));
     };
 
     render() {
         const { images } = this.props;
-        const { currentSlide } = this.state;
+        const { currentIndex } = this.state;
+
         return (
             <div id="carousel" className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
                     {images.map((image, index) => (
-                        <div key={index} className={`carousel-item ${index === currentSlide ? 'active' : ''}`}>
-                            <img alt="" className="d-block w-100" src={image} />
+                        <div key={index} className={`carousel-item ${index === currentIndex ? 'active' : ''}`}>
+                            <img alt="" className="d-block w-50" src={image} />
                         </div>
                     ))}
                 </div>
-                <button className="carousel-control-prev" onClick={this.handlePrevClick} type="button">
+                <button className="carousel-control-prev" data-bs-target="#carousel" type="button" data-bs-slide="prev" onClick={this.handlePrev}>
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Previous</span>
                 </button>
-                <button className="carousel-control-next" onClick={this.handleNextClick} type="button">
+                <button className="carousel-control-next" data-bs-target="#carousel" type="button" data-bs-slide="next" onClick={this.handleNext}>
                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Next</span>
                 </button>
@@ -45,9 +47,5 @@ class Slider extends React.Component {
         );
     }
 }
-
-Slider.propTypes = {
-    images: PropTypes.arrayOf(PropTypes.string).isRequired
-};
 
 export default Slider;
