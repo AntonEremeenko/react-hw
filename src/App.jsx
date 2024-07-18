@@ -1,10 +1,16 @@
 import React from 'react'
-import Card from "./components/Card.jsx";
+import Collapse from "./components/Collapse.jsx";
 
+const text = 'collapse me';
 
 class App extends React.Component {
     render() {
-        return<Card/>
+        const text = 'collapse me';
+        return (
+            <div className="App">
+                <Collapse text={text} opened={false}/>
+            </div>
+        )
     }
 }
 
