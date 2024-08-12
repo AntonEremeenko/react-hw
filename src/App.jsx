@@ -1,11 +1,12 @@
-import React from 'react'
-import Card from "./components/Card.jsx";
+import TodoList from "./components/TodoList";
 
 
-class App extends React.Component {
-    render() {
-        return<Card/>
-    }
+function App() {
+    return (
+        <div>
+            <TodoList/>
+        </div>
+    )
 }
 
 export default App
