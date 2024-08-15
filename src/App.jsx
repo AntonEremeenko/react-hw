@@ -1,11 +1,11 @@
-import React from 'react'
-import Card from "./components/Card.jsx";
-
-
-class App extends React.Component {
-    render() {
-        return<Card/>
-    }
+import Modal from "./components/Modal";
+import Menu from "./components/Modal/Menu.jsx";
+function App()  {
+        return (
+            <div>
+                <Menu />
+            </div>
+        )
 }
 
 export default App
