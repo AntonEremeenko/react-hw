@@ -1,11 +1,12 @@
-import React from 'react'
-import PostCatalog from "./components/PostCatalog.jsx";
+import React from 'react';
+import TodoBox from "./components/TodoBox";
 
-
-class App extends React.Component {
-    render() {
-        return<PostCatalog/>
-    }
+function App() {
+    return (
+        <div className="App">
+            <TodoBox />
+        </div>
+    );
 }
 
-export default App
+export default App;
