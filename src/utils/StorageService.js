@@ -32,7 +32,7 @@ export class StorageService {
             ...item,
             id: this.#currentId
         });
-        await this.#rewriteStorageData(data);
+        await this.rewriteStorageData(data);
 
         this.#currentId += 1
 
@@ -40,7 +40,7 @@ export class StorageService {
         return updatedData.at(-1);
     }
 
-    async #rewriteStorageData(data) {
+    async rewriteStorageData(data) {
         try {
             await localStorage.setItem(this.#key, JSON.stringify(data));
             return true;
@@ -53,7 +53,7 @@ export class StorageService {
         const data = await this.getData();
         const itemIndex = data.findIndex((el) => el.id === id);
         const [removedElement] = data.splice(itemIndex, 1);
-        await this.#rewriteStorageData(data)
+        await this.rewriteStorageData(data)
         return removedElement;
     }
 
