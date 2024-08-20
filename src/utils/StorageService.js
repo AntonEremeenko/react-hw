@@ -8,7 +8,7 @@ export class StorageService {
     #key = null;
     #currentId = null;
 
-    // @param storageType = localStorage | sessionStorage
+
     constructor(storageType, key) {
         if (storageType === StorageService.storageTypes.local) this.#storage = localStorage;
         if (storageType === StorageService.storageTypes.session) this.#storage = sessionStorage;

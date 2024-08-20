@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Typography, Grid, Card, CardContent, Box } from '@mui/material';
+import {Container, Typography, Grid, Card, CardContent, Box, Button} from '@mui/material';
 import storageService from "../../utils/StorageService.js";
 
 const AllTodosPage = () => {
@@ -23,6 +23,11 @@ const AllTodosPage = () => {
     return (
         <Box className={'all-todos-page'}>
             <Container>
+                <Box>
+                    <nav>
+                        <Link to="/">Home Page</Link>
+                    </nav>
+                </Box>
                 <Typography variant="h4" component="h1" gutterBottom>
                     All Todos
                 </Typography>
@@ -35,12 +40,17 @@ const AllTodosPage = () => {
                                         {todo.title}
                                     </Typography>
                                     <Typography variant="body2">
-                                        {todo.body}
+                                        {todo.description}
                                     </Typography>
                                 </CardContent>
-                                <Link to={`/todo/${todo.id}`}>
+                                <Button
+                                    component={Link}
+                                    to={`/todo/${todo.id}`}
+                                    variant="outlined"
+                                    color="primary"
+                                >
                                     View
-                                </Link>
+                                </Button>
                             </Card>
                         </Grid>
                     ))}

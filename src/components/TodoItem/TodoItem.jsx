@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, CardActions, CardContent, Typography, FormControl, InputLabel, Select, MenuItem, OutlinedInput } from '@mui/material';
 import { styles } from './styles';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import storageService from "../../utils/StorageService.js";
 
-const TodoItem = ({ title, body, id, onRemove, onStatusChange }) => {
-    const [status, setStatus] = useState('not-completed');
+const TodoItem = ({ title, description, id, status: initialStatus = 'not-completed', onRemove, onStatusChange }) => {
+    const [status, setStatus] = useState(initialStatus);
 
-    const handleStatusChange = (event) => {
+    useEffect(() => {
+
+        setStatus(initialStatus);
+    }, [initialStatus]);
+
+    const handleStatusChange = async (event) => {
         const newStatus = event.target.value;
         setStatus(newStatus);
 
-        const updatedTodo = { id, title, body, completed: newStatus };
+        const updatedTodo = { id, title, description, completed: newStatus };
         onStatusChange(updatedTodo);
+
+        // Обновляем статус в LocalStorage
+        const data = await storageService.getData();
+        const updatedData = data.map(item =>
+            item.id === id ? { ...item, completed: newStatus } : item
+        );
+        await storageService.rewriteStorageData(updatedData);
     };
 
     return (
@@ -21,7 +34,7 @@ const TodoItem = ({ title, body, id, onRemove, onStatusChange }) => {
                     {title + ' ' + id}
                 </Typography>
                 <Typography variant="h5" component="div">
-                    {body}
+                    {description}
                 </Typography>
             </CardContent>
             <CardActions sx={styles.selected}>
@@ -47,7 +60,7 @@ const TodoItem = ({ title, body, id, onRemove, onStatusChange }) => {
                 >
                     View
                 </Button>
-                <Button size="small" onClick={() => onRemove({ title, body, id })}>Remove</Button>
+                <Button size="small" onClick={() => onRemove({ title, description, id })}>Remove</Button>
             </CardActions>
         </Card>
     );

@@ -13,12 +13,13 @@ import {
     OutlinedInput,
     FormControl
 } from '@mui/material';
-import { useParams, useNavigate } from 'react-router-dom';
+import {useParams, useNavigate, Link} from 'react-router-dom';
 import storageService from "../../utils/StorageService.js";
 
 const TodoEditItem = () => {
     const { id } = useParams();
-    const [todo, setTodo] = useState({ title: '', body: '', completed: '' });
+    const initialStatus = 'not-completed';
+    const [todo, setTodo] = useState({ title: '', description: '', completed: initialStatus });
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const navigate = useNavigate();
 
@@ -30,8 +31,8 @@ const TodoEditItem = () => {
             if (selectedTodo) {
                 setTodo({
                     title: selectedTodo.title,
-                    body: selectedTodo.body,
-                    completed: selectedTodo.completed
+                    description: selectedTodo.description || '',
+                    completed: selectedTodo.completed || initialStatus
                 });
             }
         };
@@ -72,6 +73,11 @@ const TodoEditItem = () => {
         <Box sx={{ maxWidth: 600, margin: '0 auto' }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
+                    <Box>
+                        <nav>
+                            <Link to="/">Home Page</Link>
+                        </nav>
+                    </Box>
                     <Typography variant="h5" component="h2">
                         Edit Todo
                     </Typography>
@@ -88,13 +94,13 @@ const TodoEditItem = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
-                        name="body"
+                        name="description"
                         label="Description"
                         multiline
                         rows={4}
                         variant="outlined"
                         fullWidth
-                        value={todo.body}
+                        value={todo.description}
                         onChange={handleChange}
                     />
                 </Grid>
@@ -103,6 +109,7 @@ const TodoEditItem = () => {
                         <InputLabel id="status-select-label">Change state</InputLabel>
                         <Select
                             name="completed"
+                            labelId="status-select-label"
                             input={<OutlinedInput label="Change state" />}
                             variant="outlined"
                             fullWidth
