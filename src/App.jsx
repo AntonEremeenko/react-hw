@@ -1,11 +1,10 @@
-import React from 'react'
-import Card from "./components/Card.jsx";
+import React from "react";
+import PostsDisplay from "./components/PostsDisplay/index.js";
 
-
-class App extends React.Component {
-    render() {
-        return<Card/>
-    }
+function App() {
+    return (
+        <PostsDisplay/>
+    )
 }
 
 export default App
